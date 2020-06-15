@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
-class BooksController extends Controller
+class AuthorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,18 +35,10 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create($this->validateRequest($request));
-        return redirect('/books');
+
+        Author::create($request->only('name', 'bdate'));
     }
 
-    protected function validateRequest($request)
-    {
-       return $request->validate([
-            'title' => 'required',
-            'author'=> 'required',
-
-        ]);
-    }
     /**
      * Display the specified resource.
      *
@@ -78,16 +70,7 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $book = Book::find($id);
-
-        $this->validateRequest($request);
-
-        $book->title = $request->input('title');
-        $book->author = $request->input('author');
-
-        $book->update();
-
-        return redirect('/books');
+        //
     }
 
     /**
@@ -98,8 +81,6 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        $book = Book::find($id);
-        $book->delete();
-        return redirect('/books');
+        //
     }
 }
